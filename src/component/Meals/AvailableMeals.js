@@ -33,16 +33,15 @@ const AvailableMeals = () => {
         key={meal.id}
         description={meal.description}
         name={meal.name}
-        price={meal.price}/
-    >)
+        price={meal.price}
+    />)
 
-        return <section className={classes.meals}>
-            <Card>
-                <ul>
-                    {mealsList}
-                </ul>
-            </Card>
-        </section>
-        }
-
-        export default AvailableMeals;
+    return <section className={classes.meals}>
+        <Card>
+            <ul>
+                {mealsList}
+            </ul>
+        </Card>
+    </section>
+}
+export default AvailableMeals;
