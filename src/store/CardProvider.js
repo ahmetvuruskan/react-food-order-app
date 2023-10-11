@@ -8,7 +8,21 @@ const defaultCartState = {
 const cartReducer = (state, action) => {
 
     if (action.type === 'ADD_ITEM') {
-        const updatedItems = state.items.concat(action.item)
+        const extisingCartItemIndex = state.items.findIndex((item) => item.id === action.item.id)
+        const existingCartItem = state.items[extisingCartItemIndex]
+
+        let updatedItems;
+
+        if (existingCartItem) {
+          const  updatedItem = {
+                ...existingCartItem,
+                amount: existingCartItem.amount + action.item.amount
+            }
+            updatedItems = [...state.items]
+            updatedItems[extisingCartItemIndex] = updatedItem;
+        } else {
+            updatedItems = state.items.concat(action.item)
+        }
         const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount
         return {
             items: updatedItems,
@@ -32,7 +46,7 @@ const CardProvider = props => {
     const removeItemFromCartHandler = (id) => {
         dispatcCartAction({
             type: "REMOVE_ITEM",
-            item:id
+            item: id
 
         })
     }
